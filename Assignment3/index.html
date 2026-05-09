@@ -1,11 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assignment 3</title>
+    <title>Interactive Greeting Page</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+
+        /* Header */
+        .header {
+            width: 100%;
+            background-color: #e6e6e6;
+            padding: 15px;
+            font-size: 28px;
+            font-weight: 500;
+        }
+
+        /* Container */
+        .container {
+            margin-top: 80px;
+        }
+
+        /* Color Boxes */
+        .boxes {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 80px;
+        }
+
+        .box {
+            width: 90px;
+            height: 90px;
+            border: 1px solid #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            background-color: white;
+            transition: 0.3s;
+        }
+
+        .box:hover {
+            transform: scale(1.05);
+        }
+
+        /* Input Section */
+        .input-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input {
+            width: 220px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: 1px solid gray;
+            background-color: #d9d9d9;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #c0c0c0;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Assignment 3 - Coming Soon</h1>
+
+    <!-- Header -->
+    <div class="header" id="greeting">
+        Hello, Aakash
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- Color Boxes -->
+        <div class="boxes">
+
+            <div class="box" id="redBox" onclick="changeColor('red')">
+                Red
+            </div>
+
+            <div class="box" id="blueBox" onclick="changeColor('blue')">
+                Blue
+            </div>
+
+            <div class="box" id="greenBox" onclick="changeColor('green')">
+                Green
+            </div>
+
+            <div class="box" id="yellowBox" onclick="changeColor('yellow')">
+                Yellow
+            </div>
+
+        </div>
+
+        <!-- Input and Button -->
+        <div class="input-section">
+
+            <input type="text" id="nameInput" placeholder="Enter your name">
+
+            <button onclick="greetUser()">
+                Greet
+            </button>
+
+            <button onclick="clearColors()">
+                Clear Colors
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+
+        // Store selected colors
+        let selectedColors = new Set();
+
+        // Function to toggle box colors
+        function changeColor(color) {
+
+            const colorBoxes = {
+                red: "redBox",
+                blue: "blueBox",
+                green: "greenBox",
+                yellow: "yellowBox"
+            };
+
+            const box = document.getElementById(colorBoxes[color]);
+
+            // Toggle color selection
+            if (selectedColors.has(color)) {
+                // Deselect the color
+                selectedColors.delete(color);
+                box.style.backgroundColor = "white";
+                box.style.color = "black";
+            } else {
+                // Select the color
+                selectedColors.add(color);
+                box.style.backgroundColor = color;
+                box.style.color = (color === "yellow") ? "black" : "white";
+            }
+        }
+
+        // Function to clear all selected colors
+        function clearColors() {
+            selectedColors.clear();
+            document.getElementById("redBox").style.backgroundColor = "white";
+            document.getElementById("blueBox").style.backgroundColor = "white";
+            document.getElementById("greenBox").style.backgroundColor = "white";
+            document.getElementById("yellowBox").style.backgroundColor = "white";
+            document.getElementById("redBox").style.color = "black";
+            document.getElementById("blueBox").style.color = "black";
+            document.getElementById("greenBox").style.color = "black";
+            document.getElementById("yellowBox").style.color = "black";
+        }
+
+        // Function to greet user
+        function greetUser() {
+
+            let userName = document.getElementById("nameInput").value;
+
+            if (userName.trim() !== "") {
+                document.getElementById("greeting").innerHTML =
+                    "Hello, " + userName;
+            }
+            else {
+                document.getElementById("greeting").innerHTML =
+                    "Hello, Guest";
+            }
+        }
+
+    </script>
+
 </body>
+
 </html>
